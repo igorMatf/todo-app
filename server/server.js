@@ -18,6 +18,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "..", "client/build")));
 
 app.use('/api/user', require('./controllers/userController'));
+app.use('/api/todos', require('./controllers/todosController'));
 
 
 if (process.env.NODE_ENV === "production") {

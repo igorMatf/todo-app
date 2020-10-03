@@ -7,6 +7,8 @@ function Header() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link id="home-nav" className="nav-link-header" href="/"> Home </Nav.Link>
+                    <Nav.Link id="home-nav" className="nav-link-header" href="/createTodo"> Add goal </Nav.Link>
+                    <Nav.Link id="home-nav" className="nav-link-header" href="/myGoals"> My goals </Nav.Link>
                 </Nav>
                 <Nav>
                     <Nav.Link id="login-nav" className="nav-link-header" href="/login" > Login </Nav.Link>
