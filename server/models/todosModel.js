@@ -4,8 +4,8 @@ const todosSchema = new mongoose.Schema({
     email: String,
     title: String,
     description: String,
-    isFinished: Boolean
-});
+    isFinished: Boolean,
+}, { timestamps: true });
 
 const todosModel = new mongoose.model('Todos', todosSchema);
 module.exports = todosModel;

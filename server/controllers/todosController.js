@@ -15,13 +15,10 @@ router.post('/createGoal', async (req, res, next) => {
 
     try {
         await newGoal.save();
-        res.status(201).send(newUser);
+        res.status(201).send(newGoal);
     } catch (e) {
-        res.status(401).send(newUser);
+        res.status(201).send(newGoal);
     }
-
-
-
 });
 
 
@@ -39,5 +36,42 @@ router.post("/getTodos", async (req, res, next) => {
     }
 });
 
+router.post('/deleteGoal', async (req, res, next) => {
+    console.log(req.body.email);
+    console.log(req.body.title);
+
+    try {
+        await Goal.findOneAndDelete({ email: req.body.email, title: req.body.title });
+        return res.status(200).send({
+            message: "Goal deleted"
+        });
+    } catch (e) {
+        console.log("Failed to delete", req.body.email);
+        return res.status(500).send({
+            message: "Failed to delete goal"
+        });
+    }
+
+});
+
+router.post('/updateGoal', async (req, res, next) => {
+    console.log(req.body.email);
+    console.log(req.body.title);
+
+    try {
+        const goal = await Goal.findOne({ email: req.body.email, title: req.body.title });
+        goal.isFinished = true;
+        await goal.save();
+        res.status(201).send({
+            message: "Updated!"
+        });
+    } catch (e) {
+        console.log("Failed to delete", req.body.email);
+        return res.status(500).send({
+            message: "Failed to update goal"
+        });
+    }
+
+});
 
 module.exports = router;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import Header from './Header';
+import { Redirect } from 'react-router-dom'
+import Footer from './Footer';
+
 
 function CreateTodo() {
     const [title, setTitle] = useState('');
@@ -15,16 +18,26 @@ function CreateTodo() {
 
         console.log(data);
 
-        try {
-            const response = await axios.post("/api/todos/createGoal", data);
-        } catch (e) {
 
+        let confirm = window.confirm("Are you sure you want to create this goal?");
+        if (!confirm) {
+            return;
         }
+
+        try {
+            await axios.post("/api/todos/createGoal", data);
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        console.log("Goal saved successfully!");
+        window.location.href = "/myGoals";
     }
 
     return (
 
-        <div className="container" id="registerAccount" style={{ paddingTop: '70px', paddingBottom: '50px' }}>
+        <div className="container-fluid" id="registerAccount" style={{ paddingTop: '70px', paddingBottom: '50px' }}>
             <Header />
             <div className="row">
 
@@ -34,7 +47,7 @@ function CreateTodo() {
                 <div className="card col-lg-6">
                     <div className="card-body">
 
-                        <h2>Add your goal</h2>
+                        <h2>Add your task</h2>
 
                         <form id="formAccount">
 
@@ -47,8 +60,8 @@ function CreateTodo() {
 
 
                             <div className="form-group">
-                                <label htmlFor="message">Message:</label>
-                                <textarea className="form-control" rows="5" id="message" placeholder="Enter message" name="message" onChange={e => { setDescription(e.target.value) }}></textarea>
+                                <label htmlFor="message">Description:</label>
+                                <textarea className="form-control" rows="5" id="message" placeholder="Enter description" name="message" onChange={e => { setDescription(e.target.value) }}></textarea>
                             </div>
 
 
@@ -64,7 +77,7 @@ function CreateTodo() {
                 </div>
 
             </div>
-
+            <Footer />
         </div>
     )
 }

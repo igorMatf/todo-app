@@ -29,6 +29,7 @@ function Login() {
 
             localStorage.setItem("token", token);
             localStorage.setItem("email", data.email)
+            window.location.href = "/";
 
         } catch (e) {
             if (e.request.status === 400) {
@@ -37,6 +38,8 @@ function Login() {
                 window.alert('Wrong password! Try again...');
             }
         }
+
+
     }
     return (
         <div className="login">
